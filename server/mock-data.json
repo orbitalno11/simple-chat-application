@@ -1,0 +1,74 @@
+{
+    "user": {
+        "user_id_1": {
+            "user_id": "user_id_1",
+            "name": "user1",
+            "picture_url": "url"
+        },
+        "user_id_2": {
+            "user_id": "user_id_2",
+            "name": "user2",
+            "picture_url": "url"
+        },
+        "user_id_3": {
+            "user_id": "user_id_3",
+            "name": "user3",
+            "picture_url": "url"
+        }
+    },
+    "chat": {
+        "user_id_1": [
+            {
+                "participant_id": "user_id_2",
+                "transaction_id": "tsx_id_1",
+                "is_favorite": true
+            }
+        ],
+        "user_id_2": [
+            {
+                "participant_id": "user_id_1",
+                "transaction_id": "tsx_id_1",
+                "is_favorite": true
+            },
+            {
+                "participant_id": "user_id_3",
+                "transaction_id": "tsx_id_2",
+                "is_favorite": false
+            }
+        ],
+        "user_id_3": [
+            {
+                "participant_id": "user_id_2",
+                "transaction_id": "tsx_id_2",
+                "is_favorite": false
+            }
+        ]
+    },
+    "chat_transaction": {
+        "tsx_id_1": {
+            "participant": ["user_id_1", "user_id_2"],
+            "transaction": [
+                {
+                    "sender_id": "user_id_1",
+                    "message": "Hello",
+                    "send_time": 1650089668000
+                },
+                {
+                    "sender_id": "user_id_2",
+                    "message": "Hi",
+                    "send_time": 1650089728000
+                }
+            ]
+        },
+        "tsx_id_2": {
+            "participant": ["user_id_2", "user_id_3"],
+            "transaction": [
+                {
+                    "sender_id": "user_id_2",
+                    "message": "สวัสดี",
+                    "send_time": 1650089668000
+                }
+            ]
+        }
+    }
+}
