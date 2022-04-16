@@ -10,7 +10,7 @@ function createDataBody(responseData) {
 
 function returnSuccess(res, body) {
     if (body) {
-        res.status(200).json(body)
+        res.status(200).json(createDataBody(body))
     } else {
         res.status(200).json({})
     }
@@ -18,7 +18,7 @@ function returnSuccess(res, body) {
 
 function returnBadRequest(res, body) {
     if (body) {
-        res.status(400).json(body)
+        res.status(400).json(createDataBody(body))
     } else {
         res.status(400).json(failDataBody)
     }
@@ -26,7 +26,7 @@ function returnBadRequest(res, body) {
 
 function returnForbidden(res, body) {
     if (body) {
-        res.status(403).json(body)
+        res.status(403).json(createDataBody(body))
     } else {
         res.status(403).json(failDataBody)
     }
@@ -34,7 +34,7 @@ function returnForbidden(res, body) {
 
 function returnNotFound(res, body) {
     if (body) {
-        res.status(404).json(body)
+        res.status(404).json(createDataBody(body))
     } else {
         res.status(404).json(failDataBody)
     }
@@ -42,7 +42,7 @@ function returnNotFound(res, body) {
 
 function returnInternalServer(res, body) {
     if (body) {
-        res.status(500).json(body)
+        res.status(500).json(createDataBody(body))
     } else {
         res.status(500).json(failDataBody)
     }
