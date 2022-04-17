@@ -1,15 +1,16 @@
 package com.example.simplechatapp.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.simplechatapp.databinding.FragmentHomeBinding
+import com.example.simplechatapp.ui.chatroom.ChatRoomActivity
 import com.example.simplechatapp.ui.view.chat.ChatItemListAdapter
 import com.example.simplechatapp.ui.view.chat.ChatItemView
 
@@ -40,7 +41,9 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+
         setupView()
         observeViewModel()
     }
@@ -65,7 +68,10 @@ class HomeFragment : Fragment() {
 
     private inner class OnChatClickListener : ChatItemView.OnChatClickListener {
         override fun onChatClick(chatId: String) {
-            Toast.makeText(requireContext(), "Click: $chatId", Toast.LENGTH_LONG).show()
+            val intent = Intent(requireContext(), ChatRoomActivity::class.java).apply {
+                putExtra("chatId", chatId)
+            }
+            requireActivity().startActivity(intent)
         }
     }
 }

@@ -13,7 +13,7 @@ interface ChatApi {
     @GET("chats?user=user_id_1")
     suspend fun getAllChat(): NetworkResponse<List<NetworkChat>>
 
-    @GET("chats/{chatId}")
+    @GET("chats/{chatId}?user=user_id_1")
     suspend fun getChat(
         @Path("chatId") chatId: String
     ): NetworkResponse<NetworkChatDetail>

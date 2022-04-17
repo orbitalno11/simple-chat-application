@@ -27,7 +27,17 @@ const serverPort = process.env.SERVER_PORT || 5000
 // Socket
 
 io.on("connection", (socket) => {
-    console.log("user connected")
+    console.log(socket.id)
+})
+
+app.get("/test-socket", (req, res) => {
+    const { msg: messageString } = req.query
+
+    io.emit("public-message", {
+        message: messageString
+    })
+
+    res.send("OK")
 })
 
 // API
@@ -95,9 +105,12 @@ app.get("/v1/chats/:chat_id", async (req, res) => {
         const participantId = chat.participant.filter(
             (user) => user !== userId
         )[0]
+        const participantDetail = await getCollection(USER_COLLECTION).findOne({
+            user_id: participantId
+        })
         const result = {
             participant: {
-                name: mockedData.user[participantId].name,
+                name: participantDetail.name,
             },
             messages: chat.transaction.sort(
                 (a, b) => a.send_time - b.send_time
