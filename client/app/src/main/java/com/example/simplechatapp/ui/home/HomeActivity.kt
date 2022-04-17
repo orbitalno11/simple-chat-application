@@ -1,11 +1,13 @@
 package com.example.simplechatapp.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import com.example.simplechatapp.R
 import com.example.simplechatapp.databinding.ActivityHolderBinding
+import io.socket.client.IO
 
 class HomeActivity : AppCompatActivity() {
 

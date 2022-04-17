@@ -1,6 +1,5 @@
 package com.example.simplechatapp.network
 
-import android.util.Log
 import com.example.simplechatapp.BuildConfig
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -10,7 +9,7 @@ class HttpBuilder {
     private val baseUrl = BuildConfig.SERVER_URL
     private val apiVersion = BuildConfig.API_VERSION
 
-    private fun getBaseUrl(): String = "$baseUrl:5000/$apiVersion/"
+    private fun getBaseUrl(): String = "$baseUrl/$apiVersion/"
 
     fun createRetrofit(): Retrofit {
         return Retrofit.Builder()

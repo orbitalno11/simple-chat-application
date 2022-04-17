@@ -24,7 +24,7 @@ android {
             buildConfigField "String", "API_VERSION", "\"v1\""
         }
         debug {
-            buildConfigField "String", "SERVER_URL", "\"http:10.0.2.2\""
+            buildConfigField "String", "SERVER_URL", "\"https://4997-2405-9800-bc02-4cca-e1c4-ea37-c54e-265d.ngrok.io\""
             buildConfigField "String", "API_VERSION", "\"v1\""
         }
     }
@@ -52,6 +52,9 @@ dependencies {
     implementation 'com.facebook.fresco:fresco:2.6.0'
     implementation 'com.facebook.fresco:animated-webp:2.6.0'
     implementation 'com.facebook.fresco:webpsupport:2.6.0'
+    implementation ('io.socket:socket.io-client:2.0.0') {
+        exclude group: "org.json", module: 'json'
+    }
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
