@@ -47,6 +47,7 @@ class ChatRoomFragment : Fragment() {
 
         chatId?.let {
             viewModel.fetchChat(it)
+            viewModel.observeNewMessage(it)
         }
 
         setupView()
@@ -66,7 +67,6 @@ class ChatRoomFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.observeNewMessage()
         viewModel.messages.observe(viewLifecycleOwner) {
             adapter.setList(it)
         }

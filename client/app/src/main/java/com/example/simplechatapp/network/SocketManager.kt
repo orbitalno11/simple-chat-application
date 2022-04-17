@@ -6,7 +6,6 @@ import com.example.simplechatapp.model.ui.Message
 import io.socket.client.IO
 import io.socket.client.Socket
 import org.json.JSONObject
-import java.lang.Exception
 import java.net.URISyntaxException
 
 object SocketHandler {
@@ -43,24 +42,27 @@ fun Socket.onReceivePublicMessage(listener: (message: String?) -> Unit) {
     }
 }
 
-fun Socket.onReceivePrivateMessage(listener: (message: Message?) -> Unit) {
+fun Socket.onReceivePrivateMessage(id: String, listener: (message: Message?) -> Unit) {
     this.connect()
     this.on(SocketEvent.PRIVATE_MESSAGE.value) {
         try {
             val data = it[0] as JSONObject
+            val chatId = data.getString("chatId")
             val senderId = data.getString("senderId")
             val senderName = data.getString("senderName")
             val message = data.getString("message")
             val sendTime = data.getLong("sendTime")
 
-            listener(
-                Message(
-                    senderId = senderId,
-                    senderName = senderName,
-                    message = message,
-                    sendTime = sendTime
+            if (chatId == id) {
+                listener(
+                    Message(
+                        senderId = senderId,
+                        senderName = senderName,
+                        message = message,
+                        sendTime = sendTime
+                    )
                 )
-            )
+            }
         } catch (e: Exception) {
             listener(null)
         }

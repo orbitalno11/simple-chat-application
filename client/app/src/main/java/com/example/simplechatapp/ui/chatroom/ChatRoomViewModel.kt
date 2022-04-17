@@ -38,8 +38,8 @@ class ChatRoomViewModel : ViewModel() {
         }
     }
 
-    fun observeNewMessage() {
-        SocketHandler.getSocket().onReceivePrivateMessage {
+    fun observeNewMessage(id: String) {
+        SocketHandler.getSocket().onReceivePrivateMessage(id) {
             it ?: return@onReceivePrivateMessage
             val messages = _messages.value?.toMutableList() ?: return@onReceivePrivateMessage
             messages.add(it)

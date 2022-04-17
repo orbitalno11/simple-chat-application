@@ -26,21 +26,17 @@ const serverPort = process.env.SERVER_PORT || 5000
 
 // Socket
 
+// io.use((socket, next) => {
+//     const username = socket.handshake.auth.username
+//     if (!username) {
+//         return next(new Error("invalid username"))
+//     }
+//     socket.username = username
+//     next()
+// })
+
 io.on("connection", (socket) => {
     console.log(socket.id)
-})
-
-app.get("/test-socket", (req, res) => {
-    const { msg: messageString } = req.query
-
-    io.emit("private-message", {
-        senderId: "user_id_1",
-        senderName: "user1",
-        message: messageString,
-        sendTime: 0
-    })
-
-    res.send("OK")
 })
 
 // API
@@ -164,12 +160,15 @@ app.post("/v1/chats/:chat_id", async (req, res) => {
             }
         )
 
-        io.emit("private-message", {
+        const socketMessage = {
             senderId: userId,
             senderName: sender.name,
             message: body.message,
-            sendTime: body.send_time
-        })
+            sendTime: body.send_time,
+            chatId: chatId
+        }
+
+        io.emit("private-message", socketMessage)
 
         returnSuccess(res)
     } catch (e) {
