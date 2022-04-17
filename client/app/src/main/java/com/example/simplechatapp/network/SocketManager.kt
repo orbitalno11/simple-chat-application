@@ -2,6 +2,7 @@ package com.example.simplechatapp.network
 
 import com.example.simplechatapp.BuildConfig
 import com.example.simplechatapp.exception.SocketException
+import com.example.simplechatapp.model.ui.Message
 import io.socket.client.IO
 import io.socket.client.Socket
 import org.json.JSONObject
@@ -42,13 +43,24 @@ fun Socket.onReceivePublicMessage(listener: (message: String?) -> Unit) {
     }
 }
 
-fun Socket.onReceivePrivateMessage(listener: (message: String?) -> Unit) {
+fun Socket.onReceivePrivateMessage(listener: (message: Message?) -> Unit) {
     this.connect()
     this.on(SocketEvent.PRIVATE_MESSAGE.value) {
         try {
             val data = it[0] as JSONObject
+            val senderId = data.getString("senderId")
+            val senderName = data.getString("senderName")
             val message = data.getString("message")
-            listener(message)
+            val sendTime = data.getLong("sendTime")
+
+            listener(
+                Message(
+                    senderId = senderId,
+                    senderName = senderName,
+                    message = message,
+                    sendTime = sendTime
+                )
+            )
         } catch (e: Exception) {
             listener(null)
         }

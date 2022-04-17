@@ -59,11 +59,14 @@ class ChatRoomFragment : Fragment() {
         binding.messageRecyclerView.adapter = adapter
 
         binding.sendMessageButton.setOnClickListener {
-            // TODO implement send message
+            val message = binding.messageEditText.text.toString()
+            viewModel.sendMessage(message)
+            binding.messageEditText.text.clear()
         }
     }
 
     private fun observeViewModel() {
+        viewModel.observeNewMessage()
         viewModel.messages.observe(viewLifecycleOwner) {
             adapter.setList(it)
         }

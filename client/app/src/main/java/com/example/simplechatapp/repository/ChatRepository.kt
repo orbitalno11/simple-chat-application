@@ -40,11 +40,11 @@ class ChatRepository {
         )
     }
 
-    suspend fun sendMessage(message: SendMessageForm) {
+    suspend fun sendMessage(message: SendMessageForm, chatId: String) {
         val form = NetworkSendMessageForm(
             message = message.message,
             sendTime = message.sendTime
         )
-        dataSource.sendMessage(form)
+        dataSource.sendMessage(chatId, form)
     }
 }

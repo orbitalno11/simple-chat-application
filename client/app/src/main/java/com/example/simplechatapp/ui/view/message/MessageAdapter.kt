@@ -32,7 +32,7 @@ class MessageAdapter : RecyclerView.Adapter<MessageAdapter.MessageItemViewHolder
     class MessageItemViewHolder(private val view: ViewMessageItemBinding) :
         RecyclerView.ViewHolder(view.root) {
         fun bind(item: Message) {
-            if (item.senderId == "user_id_1") {
+            if (item.senderId == "user_id_2") {
                 view.root.displayedChild = 0
                 view.sendMessageView.binding.messageTextView.text = item.message
             } else {

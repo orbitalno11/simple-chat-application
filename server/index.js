@@ -33,8 +33,11 @@ io.on("connection", (socket) => {
 app.get("/test-socket", (req, res) => {
     const { msg: messageString } = req.query
 
-    io.emit("public-message", {
-        message: messageString
+    io.emit("private-message", {
+        senderId: "user_id_1",
+        senderName: "user1",
+        message: messageString,
+        sendTime: 0
     })
 
     res.send("OK")
@@ -144,6 +147,10 @@ app.post("/v1/chats/:chat_id", async (req, res) => {
             })
         }
 
+        const sender = await getCollection(USER_COLLECTION).findOne({
+            user_id: userId
+        })
+
         await getCollection(CHAT_TRANSACTION_COLLECTION).updateOne(
             { transaction_id: chatId },
             {
@@ -156,6 +163,13 @@ app.post("/v1/chats/:chat_id", async (req, res) => {
                 },
             }
         )
+
+        io.emit("private-message", {
+            senderId: userId,
+            senderName: sender.name,
+            message: body.message,
+            sendTime: body.send_time
+        })
 
         returnSuccess(res)
     } catch (e) {
